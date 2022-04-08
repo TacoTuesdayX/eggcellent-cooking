@@ -1,0 +1,35 @@
+{
+  "name": "cse110-fa21-group35",
+  "version": "1.0.0",
+  "description": "*Group Page*",
+  "main": "index.js",
+  "scripts": {
+    "test": "npx cypress run"
+  },
+  "standard": {
+    "ignore": [
+      "source/scripts/",
+      "cypress/integration",
+      "cypress/support",
+      "cypress/plugins"
+    ]
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/cse110-sp21-group35/cse110-fa21-group35.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/cse110-sp21-group35/cse110-fa21-group35/issues"
+  },
+  "homepage": "https://github.com/cse110-sp21-group35/cse110-fa21-group35#readme",
+  "devDependencies": {
+    "cypress": "^9.1.1",
+    "prettier": "2.4.1"
+  },
+  "dependencies": {
+    "chance": "^1.1.8"
+  }
+}

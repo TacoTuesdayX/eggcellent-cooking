@@ -1,0 +1,369 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <!-- Required CSS. Bootstrap MUST be imported -->
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="/source/styles/bootstrap.min.css"
+    />
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="/source/styles/recipe_content.css"
+    />
+    <link rel="stylesheet" type="text/css" href="/source/styles/main.css" />
+    <link
+      href="https://fonts.googleapis.com/icon?family=Material+Icons"
+      rel="stylesheet"
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap"
+      rel="stylesheet"
+    />
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.3.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/6.1.1/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/6.1.1/firebase-database.js"></script>
+    <script src="/source/scripts/recipe_class_online.js" type="module"></script>
+    <script src="/source/scripts/index.js"></script>
+    <script src="/source/scripts/recipe-content.js"></script>
+    <title>Eggcellent Recipe</title>
+  </head>
+  <body>
+    <header id="top">
+      <div>
+        <a href="/source/components/main.html"
+          ><img src="/source/images/logo.JPG"
+        /></a>
+      </div>
+      <div class="search-box">
+        <input
+          id="search-by-name"
+          type="text"
+          class="form-control"
+          placeholder="Recipe Name"
+        />
+        <span class="search-icon">
+          <button class="btn search-by-name-btn" onclick="searchRecipeByName()">
+            <i class="material-icons">search</i>
+          </button>
+        </span>
+      </div>
+    </header>
+    <section id="navbar">
+      <div class="nav">
+        <div class="All">
+          <a
+            class="categBtn"
+            data-bs-toggle="offcanvas"
+            data-bs-target="#categoriesTab"
+          >
+            <i class="material-icons">menu</i>
+            All Recipes
+          </a>
+        </div>
+        <div class="My-Recipes">
+          <a href="/source/components/my_recipes.html">
+            <i class="material-icons">restaurant_menu</i>
+            My Recipes
+          </a>
+        </div>
+        <div class="Account">
+          <a href="/source/components/account.html">
+            <i class="material-icons">account_circle</i>
+            Account
+          </a>
+        </div>
+      </div>
+    </section>
+    <section
+      class="offcanvas offcanvas-start"
+      tabindex="-1"
+      id="categoriesTab"
+      data-bs-scroll="true"
+      aria-labelledby="categoriesTabdropLabel"
+    >
+      <div class="offcanvas-header">
+        <p class="offcanvas-title" id="categoriesTabdropLabel">Categories</p>
+        <button
+          class="btn btn-sm btn-outline-danger"
+          style="margin-right: 1rem"
+          onclick="resetSearch()"
+        >
+          Reset
+        </button>
+        <button
+          class="btn btn-sm btn-outline-success"
+          style="margin-right: 1rem"
+          onclick="searchRecipeByTag()"
+        >
+          Search
+        </button>
+        <button
+          type="button"
+          class="btn-close text-reset"
+          data-bs-dismiss="offcanvas"
+          aria-label="Close"
+        ></button>
+      </div>
+      <div class="offcanvas-body">
+        <div class="tags">
+          <p class="tag-label">Ingredients</p>
+          <input
+            id="ingreds-input"
+            type="text"
+            class="form-control"
+            placeholder="(ex. egg,water,oil)"
+          />
+        </div>
+        <div class="tags">
+          <p class="tag-label">Max Cooking Time (minutes)</p>
+          <input
+            id="cook-time-input"
+            type="number"
+            class="form-control"
+            min="0"
+            placeholder="(ex. 10)"
+          />
+        </div>
+        <div class="tags">
+          <p class="tag-label">Max Calories</p>
+          <input
+            id="calories-input"
+            type="number"
+            class="form-control"
+            min="0"
+            placeholder="(ex. 200)"
+          />
+        </div>
+        <div class="tags" id="meal-type">
+          <p class="tag-label">Meal Type (Select <strong>ONE</strong> only)</p>
+          <button class="btn btn-sm tag-btn" onclick="changeColorMeal(this)">
+            Main Course
+          </button>
+          <button class="btn btn-sm tag-btn" onclick="changeColorMeal(this)">
+            Side Dish
+          </button>
+          <button class="btn btn-sm tag-btn" onclick="changeColorMeal(this)">
+            Dessert
+          </button>
+          <button class="btn btn-sm tag-btn" onclick="changeColorMeal(this)">
+            Appetizer
+          </button>
+          <button class="btn btn-sm tag-btn" onclick="changeColorMeal(this)">
+            Salad
+          </button>
+          <button class="btn btn-sm tag-btn" onclick="changeColorMeal(this)">
+            Bread
+          </button>
+          <button class="btn btn-sm tag-btn" onclick="changeColorMeal(this)">
+            Breakfast
+          </button>
+          <button class="btn btn-sm tag-btn" onclick="changeColorMeal(this)">
+            Soup
+          </button>
+          <button class="btn btn-sm tag-btn" onclick="changeColorMeal(this)">
+            Beverage
+          </button>
+          <button class="btn btn-sm tag-btn" onclick="changeColorMeal(this)">
+            Sauce
+          </button>
+          <button class="btn btn-sm tag-btn" onclick="changeColorMeal(this)">
+            Marinade
+          </button>
+          <button class="btn btn-sm tag-btn" onclick="changeColorMeal(this)">
+            Fingerfood
+          </button>
+          <button class="btn btn-sm tag-btn" onclick="changeColorMeal(this)">
+            Snack
+          </button>
+          <button class="btn btn-sm tag-btn" onclick="changeColorMeal(this)">
+            Drink
+          </button>
+        </div>
+        <div class="tags" id="intolerance">
+          <p class="tag-label">Intolerance</p>
+          <button class="btn btn-sm tag-btn" onclick="changeColor(this)">
+            Dairy
+          </button>
+          <button class="btn btn-sm tag-btn" onclick="changeColor(this)">
+            Egg
+          </button>
+          <button class="btn btn-sm tag-btn" onclick="changeColor(this)">
+            Gluten
+          </button>
+          <button class="btn btn-sm tag-btn" onclick="changeColor(this)">
+            Grain
+          </button>
+          <button class="btn btn-sm tag-btn" onclick="changeColor(this)">
+            Peanut
+          </button>
+          <button class="btn btn-sm tag-btn" onclick="changeColor(this)">
+            Seafood
+          </button>
+          <button class="btn btn-sm tag-btn" onclick="changeColor(this)">
+            Sesame
+          </button>
+          <button class="btn btn-sm tag-btn" onclick="changeColor(this)">
+            Shellfish
+          </button>
+          <button class="btn btn-sm tag-btn" onclick="changeColor(this)">
+            Soy
+          </button>
+          <button class="btn btn-sm tag-btn" onclick="changeColor(this)">
+            Sulfite
+          </button>
+          <button class="btn btn-sm tag-btn" onclick="changeColor(this)">
+            Tree Nut
+          </button>
+          <button class="btn btn-sm tag-btn" onclick="changeColor(this)">
+            Wheat
+          </button>
+        </div>
+        <div class="tags" id="diet">
+          <p class="tag-label">Diet (Select <strong>ONE</strong> only)</p>
+          <button class="btn btn-sm tag-btn" onclick="changeColorDiet(this)">
+            Gluten Free
+          </button>
+          <button class="btn btn-sm tag-btn" onclick="changeColorDiet(this)">
+            Ketogenic
+          </button>
+          <button class="btn btn-sm tag-btn" onclick="changeColorDiet(this)">
+            Vegetarian
+          </button>
+          <button class="btn btn-sm tag-btn" onclick="changeColorDiet(this)">
+            Lacto-Vegetarian
+          </button>
+          <button class="btn btn-sm tag-btn" onclick="changeColorDiet(this)">
+            Ovo-Vegetarian
+          </button>
+          <button class="btn btn-sm tag-btn" onclick="changeColorDiet(this)">
+            Vegan
+          </button>
+          <button class="btn btn-sm tag-btn" onclick="changeColorDiet(this)">
+            Pescetarian
+          </button>
+          <button class="btn btn-sm tag-btn" onclick="changeColorDiet(this)">
+            Paleo
+          </button>
+          <button class="btn btn-sm tag-btn" onclick="changeColorDiet(this)">
+            Primal
+          </button>
+          <button class="btn btn-sm tag-btn" onclick="changeColorDiet(this)">
+            Low FODMAP
+          </button>
+          <button class="btn btn-sm tag-btn" onclick="changeColorDiet(this)">
+            Whole30
+          </button>
+        </div>
+        <div class="tags" id="cuisine">
+          <p class="tag-label">Cuisine</p>
+          <button class="btn btn-sm tag-btn" onclick="changeColor(this)">
+            African
+          </button>
+          <button class="btn btn-sm tag-btn" onclick="changeColor(this)">
+            American
+          </button>
+          <button class="btn btn-sm tag-btn" onclick="changeColor(this)">
+            British
+          </button>
+          <button class="btn btn-sm tag-btn" onclick="changeColor(this)">
+            Cajun
+          </button>
+          <button class="btn btn-sm tag-btn" onclick="changeColor(this)">
+            Caribbean
+          </button>
+          <button class="btn btn-sm tag-btn" onclick="changeColor(this)">
+            Chinese
+          </button>
+          <button class="btn btn-sm tag-btn" onclick="changeColor(this)">
+            Eastern European
+          </button>
+          <button class="btn btn-sm tag-btn" onclick="changeColor(this)">
+            European
+          </button>
+          <button class="btn btn-sm tag-btn" onclick="changeColor(this)">
+            French
+          </button>
+          <button class="btn btn-sm tag-btn" onclick="changeColor(this)">
+            German
+          </button>
+          <button class="btn btn-sm tag-btn" onclick="changeColor(this)">
+            Greek
+          </button>
+          <button class="btn btn-sm tag-btn" onclick="changeColor(this)">
+            Indian
+          </button>
+          <button class="btn btn-sm tag-btn" onclick="changeColor(this)">
+            Irish
+          </button>
+          <button class="btn btn-sm tag-btn" onclick="changeColor(this)">
+            Italian
+          </button>
+          <button class="btn btn-sm tag-btn" onclick="changeColor(this)">
+            Japanese
+          </button>
+          <button class="btn btn-sm tag-btn" onclick="changeColor(this)">
+            Jewish
+          </button>
+          <button class="btn btn-sm tag-btn" onclick="changeColor(this)">
+            Korean
+          </button>
+          <button class="btn btn-sm tag-btn" onclick="changeColor(this)">
+            Latin American
+          </button>
+          <button class="btn btn-sm tag-btn" onclick="changeColor(this)">
+            Mediterranean
+          </button>
+          <button class="btn btn-sm tag-btn" onclick="changeColor(this)">
+            Mexican
+          </button>
+          <button class="btn btn-sm tag-btn" onclick="changeColor(this)">
+            Middle Eastern
+          </button>
+          <button class="btn btn-sm tag-btn" onclick="changeColor(this)">
+            Nordic
+          </button>
+          <button class="btn btn-sm tag-btn" onclick="changeColor(this)">
+            Southern
+          </button>
+          <button class="btn btn-sm tag-btn" onclick="changeColor(this)">
+            Spanish
+          </button>
+          <button class="btn btn-sm tag-btn" onclick="changeColor(this)">
+            Thai
+          </button>
+          <button class="btn btn-sm tag-btn" onclick="changeColor(this)">
+            Vietnamese
+          </button>
+        </div>
+      </div>
+    </section>
+    <main>
+      <section class="page-up-btn-group">
+        <a class="page-up-btn" href="#top">
+          <i class="material-icons">arrow_drop_up</i>
+        </a>
+      </section>
+      <section class="page-down-btn-group">
+        <a class="page-down-btn" href="#end">
+          <i class="material-icons">arrow_drop_down</i>
+        </a>
+      </section>
+    </main>
+    <div id="end"></div>
+  </body>
+  <footer>
+    <!-- Feel free to use onclick="showContact() in contact.js -->
+    <a href="/source/components/contact-us.html">Contact Us</a>
+  </footer>
+  <section class="recipe-expand"></section>
+</html>
